@@ -12,21 +12,21 @@ What is the 10001st prime number?
 import numpy as np
 
 
+def is_divisible(target, divisors):
+    for i in divisors:
+        if target % i == 0:
+            return True
+    return False
+
+
 if __name__ == '__main__':
-    prime_number = [2]  # divided by prime numbers
+    prime_number = [2]
     target = 3
     while True:
-        is_prime = True
-        for i in prime_number:
-            if target % i == 0:
-                is_prime = False
+        if is_divisible(target, prime_number) is False:
+            if len(prime_number) == 10000:
+                print('10001th prime number is %d !' % target)
                 break
-
-        if is_prime is True:
             prime_number.append(target)
             print('%d is prime number' % target)
         target += 2  # every prime number is odd number, except for 2
-
-        if len(prime_number) == 10001:
-            print('10001th prime number is %d !' % prime_number[-1])
-            break
