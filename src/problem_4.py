@@ -12,6 +12,14 @@ Find the largest palindrome made from the product of two 3-digit numbers.
 import numpy as np
 
 
+def is_palindromic(num):
+    num = str(num)
+    l = len(num)
+    for i in range(l / 2):
+        if num[i] != num[-(i + 1)]:
+            return False
+    return True
+
 if __name__ == '__main__':
     # [900]
     src = np.arange(100, 1000)
@@ -22,15 +30,7 @@ if __name__ == '__main__':
     # sort desc
     src = np.sort(src)[::-1]
 
-    answer = None
     for num in src:
-        num = str(num)
-        l = len(num)
-        for i in range(l / 2):
-            if num[i] != num[-(i + 1)]:
-                break
-            if i == (l / 2) - 1:
-                answer = num
-        if answer is not None:
+        if is_palindromic(num) is True:
+            print('%s is palindromic number!' % num)
             break
-    print('%s is palindromic number!' % num)
