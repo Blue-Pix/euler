@@ -24,7 +24,7 @@ def lcm(a, b):
 
 
 if __name__ == '__main__':
-    src = range(2, 41)
+    src = range(2, 21)
     common_multiple = 1  # initialized by 1
     for i in src:
         new_common_multiple = lcm(common_multiple, i)
