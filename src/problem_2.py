@@ -15,16 +15,17 @@ find the sum of the even-valued terms.
 import numpy as np
 
 
-def createFibonacci(arr):
-    x = arr[len(arr) - 2]
-    y = arr[len(arr) - 1]
-    if x + y < 4000000:
+def createFibonacci(arr, max):
+    x = arr[-2]
+    y = arr[-1]
+    if x + y < max:
         arr.append(x + y)
-        createFibonacci(arr)
+        createFibonacci(arr, max)
 
 if __name__ == '__main__':
     arr = [1, 2]
-    createFibonacci(arr)
+    MAX = 4000000
+    createFibonacci(arr, MAX)
     arr = np.array(arr)
     sum = np.sum(arr[(arr % 2) == 0])
     print('sum is %d' % sum)
