@@ -10,13 +10,13 @@ What is the largest prime factor of the number 600851475143 ?
 
 
 if __name__ == '__main__':
-    divider = 2
+    divisor = 3
     target = 600851475143
-    while divider <= target:
-        remainder = target % divider
+    while divisor < target:
+        quotient, remainder = divmod(target, divisor)
         if remainder == 0:
-            print('%d can be divided by %d' % (target, divider))
-            target = target / divider
+            print('%d can be divided by %d' % (target, divisor))
+            target = quotient
         else:
-            divider += 1
-    print('largest prime factor is %d' % divider)
+            divisor += 2
+    print('largest prime factor is %d' % divisor)
