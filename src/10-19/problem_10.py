@@ -9,7 +9,6 @@ Find the sum of all the primes below two million.
 '''
 
 import numpy as np
-import time
 
 
 if __name__ == '__main__':
