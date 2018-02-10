@@ -15,7 +15,7 @@ if __name__ == '__main__':
     MAX = 2 * 10 ** 6
     src = np.array([0] * MAX)
     target = 3
-    sum = 2
+    _sum = 2
     while target < MAX:
         # if prime
         if src[target] == 0:
@@ -23,7 +23,7 @@ if __name__ == '__main__':
             not_prime = range(0, MAX, target)
             src[not_prime] = 1
             # sum
-            sum += target
+            _sum += target
         # check only odd number
         target += 2
-    print('sum is %d' % sum)
+    print('sum is %d' % _sum)
