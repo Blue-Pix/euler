@@ -66,7 +66,7 @@ if __name__ == '__main__':
   src = src.replace('\n', '').split(' ')
   src = filter(lambda i: i != '', src)
   src = np.array(src).reshape(ROW, COLUMN)
-  src = np.append(src, np.zeros((DIMENSION, COLUMN)), axis=0)
+  src = np.append(src, np.zeros((DIMENSION - 1, COLUMN)), axis=0)
 
   for i in range(0, ROW - DIMENSION + 1):
     for j in range(0, COLUMN - DIMENSION + 1):
