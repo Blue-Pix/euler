@@ -61,19 +61,19 @@ if __name__ == '__main__':
 
     # iterate each row
     for row_index, row in enumerate(src):
-      if row_index == len(src) - 1:
-        break
-      # iterate each column
-      next_row = src[row_index + 1]
-      for col_index, num in enumerate(next_row):
-        # left end
-        if col_index == 0:
-          next_row[col_index] += row[0]
-        # right end
-        elif col_index == len(next_row) - 1:
-          next_row[col_index] += row[-1]
-        else:
-          next_row[col_index] += max(row[col_index - 1], row[col_index])
+        if row_index == len(src) - 1:
+            break
+        # iterate each column
+        next_row = src[row_index + 1]
+        for col_index, num in enumerate(next_row):
+            # left end
+            if col_index == 0:
+                next_row[col_index] += row[0]
+            # right end
+            elif col_index == len(next_row) - 1:
+                next_row[col_index] += row[-1]
+            else:
+                next_row[col_index] += max(row[col_index - 1], row[col_index])
 
     _sum = max(src[-1])
     print('maximum total is %d' % _sum)
