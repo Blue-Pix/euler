@@ -30,13 +30,13 @@ def get_days_of_month(year, month):
 
 
 if __name__ == '__main__':
-    total_days = 1
+    total_days = 0
     sum_of_sundays = 0
 
-    for year in range(1901, 2000):
+    for year in range(1900, 2001):
         for month in range(1, 13):
             # begins with Sunday
-            if total_days % 7 == 0:
+            if year != 1900 and total_days % 7 == 0:
                 sum_of_sundays += 1
 
             # this month has
