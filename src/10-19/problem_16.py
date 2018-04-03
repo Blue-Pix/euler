@@ -10,6 +10,6 @@ What is the sum of the digits of the number 2**1000?
 
 
 if __name__ == '__main__':
-	src = 2 ** 1000
-	_sum = reduce(lambda x, y: int(x) + int(y), str(src))
-	print('answer is %d' % _sum)
+    src = 2 ** 1000
+    _sum = reduce(lambda x, y: int(x) + int(y), str(src))
+    print('answer is %d' % _sum)

@@ -33,7 +33,7 @@ def count_divisors(src):
             counter += 1
             src = src / i
         divisors = divisors * (counter + 1)
-        
+
         i = 3 if i == 2 else i + 2
 
         if src == 1:
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     while True:
         if n % 2 == 0:
             divisors = count_divisors(n / 2) * count_divisors(n + 1)
-        else:    
+        else:
             divisors = count_divisors(n) * count_divisors((n + 1) / 2)
 
         if (divisors > 500):
