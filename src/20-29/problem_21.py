@@ -19,7 +19,6 @@ Evaluate the sum of all the amicable numbers under 10000.
 '''
 
 
-import numpy as np
 from functools import reduce
 
 
@@ -42,12 +41,16 @@ def factoring(num):
     factors = {}
     divisor = 2
     power = 0
-    while num > 1:
+    GREATEST_DIVISOR = num / 2
+    while num > 1 and divisor <= GREATEST_DIVISOR:
         if num % divisor != 0:
             if power != 0:
                 factors[divisor] = power
-            divisor += 1
             power = 0
+            if divisor == 2:
+                divisor += 1
+            else:
+                divisor += 2
         else:
             num = num / divisor
             power += 1
@@ -56,23 +59,21 @@ def factoring(num):
 
 
 if __name__ == '__main__':
-
-    check_list = {}
-    _sum = 0
+    checked = set()
+    amicable_pairs = []
 
     for a in range(220, 10001):
-        if a in check_list:
+        if a in checked:
             continue
-
         b = sum_of_proper_divisors(a)
         if b < a or b == a:
             continue
-
         sum_b = sum_of_proper_divisors(b)
         if sum_b == a:
-            _sum += a + b
-            print('%d : %d is amicable pair.' % (a, b))
+            amicable_pairs.append((a, b))
+        checked.add(a)
+        checked.add(b)
 
-        check_list[a, b] = 0
-
+    _sum = sum([sum(pair) for pair in amicable_pairs])
+    print('amicable pairs: %s' % amicable_pairs)
     print('sum is %d' % _sum)
