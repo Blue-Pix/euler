@@ -31,18 +31,18 @@ from decimal import Decimal, getcontext
 
 
 def is_divisible(target, divisors):
-    for i in divisors:
-        if target % i == 0:
+    for divisor in divisors:
+        if target % divisor == 0:
             return True
     return False
 
 
-def prime_numbers():
-    prime_numbers = {2: 0}
+def prime_numbers(threshold):
+    prime_numbers = {2}
     target = 3
-    while target < 1000:
-        if is_divisible(target, prime_numbers.keys()) is False:
-            prime_numbers[target] = 0
+    while target < threshold:
+        if is_divisible(target, prime_numbers) is False:
+            prime_numbers.add(target)
         target += 2
     return prime_numbers
 
@@ -51,26 +51,27 @@ def find_recurring_cycle(decimal_fraction_part, denominator):
     recurring_cycle = []
     for index, digit in enumerate(decimal_fraction_part):
         recurring_cycle.append(digit)
-        length = None
+        length = 0
         if len(recurring_cycle) > 1 and digit == recurring_cycle[0]:
             length = recurring_cycle_length(recurring_cycle, decimal_fraction_part, denominator)
-        if length is not None:
+        if length != 0:
             return length
+    return 0
 
 
 def recurring_cycle_length(recurring_cycle, decimal_fraction_part, denominator):
     for index, digit in enumerate(reversed(recurring_cycle)):
         if digit != decimal_fraction_part[denominator - 1 - index]:
-            return None
+            return 0
     print('%d: recurring cycle is %d' % (denominator, len(recurring_cycle) - 1))
     return len(recurring_cycle) - 1
 
 
 if __name__ == '__main__':
-    getcontext().prec = 2000
-    prime_numbers = prime_numbers()
+    getcontext().prec = 1000
+    prime_numbers = prime_numbers(1000)
     longest_recurring_cycle = (7, 6)
-    for denominator in prime_numbers.keys():
+    for denominator in prime_numbers:
         decimal_fraction_part = list(str(Decimal(1) / Decimal(denominator)).split('.')[1])
         length = find_recurring_cycle(decimal_fraction_part, denominator)
         if length > longest_recurring_cycle[1]:
