@@ -20,5 +20,5 @@ from itertools import permutations
 
 
 if __name__ == '__main__':
-    results = list(permutations(range(10)))
-    print('answer is %s' % ''.join(map(str, results[999999])))
+    _permutations = list(permutations(range(10)))
+    print('answer is %s' % ''.join(map(str, _permutations[999999])))
