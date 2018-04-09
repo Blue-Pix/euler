@@ -21,7 +21,6 @@ import string
 
 
 if __name__ == '__main__':
-
     ALPHABET = {'"': 0}
     for index, char in enumerate(list(string.ascii_uppercase)):
         ALPHABET[char] = index + 1
@@ -31,6 +30,5 @@ if __name__ == '__main__':
 
     _sum = 0
     for index, name in enumerate(names):
-        _sum += sum(map(lambda x: ALPHABET[x], list(name))) * (index + 1)
-
+        _sum += sum([ALPHABET[char] for char in list(name)]) * (index + 1)
     print('sum is %d' % _sum)
