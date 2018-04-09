@@ -18,59 +18,35 @@ as the sum of two abundant numbers is less than this limit.
 
 Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.
 
-28123より大きい数字はsum of two abundant numbersとして表せる
-sum of two abundant numbersとして表すことのできない最も大きい数字は28123未満である
+任意の2つの過剰数の和として表すことのできない数の総和
 '''
 
 
-import numpy as np
-from functools import reduce
+from math import sqrt
 
 
-def sum_of_divisors(num):
-    factors = factoring(num)
-    operands = []
-    for divisor, power in factors.items():
-        operands.append(sum([divisor ** i for i in range(power + 1)]))
-    return reduce(lambda x, y: x * y, operands) + 1
+def sum_of_proper_divisors(MAX):
+    sum_list = [1] * (MAX + 1)
+    for divisor in range(2, int(sqrt(MAX)) + 1):
+        sum_list[divisor ** 2] += divisor
+        for times in range(divisor + 1, MAX // divisor + 1):
+            sum_list[divisor * times] += divisor + times
+    return sum_list
 
 
-def sum_of_proper_divisors(num):
-    return sum_of_divisors(num) - (1 + num)
-
-
-def factoring(num):
-    factors = {}
-    divisor = 2
-    power = 0
-    while num > 1:
-        if num % divisor != 0:
-            if power != 0:
-                factors[divisor] = power
-            divisor += 1
-            power = 0
-        else:
-            num = num / divisor
-            power += 1
-    factors[divisor] = power
-    return factors
-
-
-def is_abundant(num):
-    _sum = sum_of_proper_divisors(num)
-    if _sum > num:
-        return True
+def is_sum_of_two_abundant_numbers(num, abundant_numbers):
+    for abundant_number in abundant_numbers:
+        if abundant_number > num / 2:
+            break
+        if (num - abundant_number) in abundant_numbers:
+            return True
     return False
 
 
 if __name__ == '__main__':
-
-    abundant_numbers_dict = {num: 0 for num in range(1, 28124) if is_abundant(num)}
-    abundant_numbers = np.empty(len(abundant_numbers_dict))
-    abundant_numbers[:] = abundant_numbers_dict.keys()
-
-    sum_of_two_abundant_numbers = abundant_numbers + abundant_numbers.reshape((-1, 1))
-    target = np.setdiff1d(np.arange(1, 28124), sum_of_two_abundant_numbers)
-
-    _sum = np.sum(target)
+    MAX = 28123
+    sum_of_proper_divisors = sum_of_proper_divisors(MAX)
+    abundant_numbers = set([num for num, _sum in enumerate(sum_of_proper_divisors) if _sum > num])
+    abundant_numbers.remove(0)
+    _sum = sum([num for num in range(MAX + 1) if not is_sum_of_two_abundant_numbers(num, abundant_numbers)])
     print('sum is %d' % _sum)
