@@ -26,19 +26,15 @@ for consecutive values of n, starting with n=0.
 '''
 
 
-import numpy as np
-import time
-
-
 def is_divisible(target, divisors):
-    for i in divisors:
-        if target % i == 0:
+    for divisor in divisors:
+        if target % divisor == 0:
             return True
     return False
 
 
 def prime_numbers(threshold):
-    prime_numbers = set([2])
+    prime_numbers = {2}
     target = 3
     while target < threshold:
         if is_divisible(target, prime_numbers) is False:
