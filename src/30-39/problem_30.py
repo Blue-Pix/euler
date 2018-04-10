@@ -19,11 +19,10 @@ that can be written as the sum of fifth powers of their digits.
 
 
 def equals_power_sum(num, power):
-    str_num = str(num)
-    _sum = sum([int(digit) ** power for digit in str_num])
+    _sum = sum([int(digit) ** power for digit in str(num)])
     if num == _sum:
-        return num
-    return 0
+        return True
+    return False
 
 
 def assume_threshold(power):
@@ -40,6 +39,6 @@ if __name__ == '__main__':
     POWER = 5
     THRESHOLD = assume_threshold(POWER)
     src = range(2, THRESHOLD)
-    dest = set([equals_power_sum(num, POWER) for num in src])
+    dest = set([num for num in src if equals_power_sum(num, POWER)])
     _sum = sum(dest)
     print('sum is %d' % _sum)
