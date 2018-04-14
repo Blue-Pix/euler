@@ -11,6 +11,8 @@ Find the sum of the only eleven primes
 that are both truncatable from left to right and right to left.
 
 NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
+
+11ある切り捨て可能素数の総和
 '''
 
 import time
