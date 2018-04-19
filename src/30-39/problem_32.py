@@ -31,13 +31,6 @@ def is_prime(num):
     return True
 
 
-def has_duplicate_digit(num):
-    digits = {digit for digit in str(num)}
-    if len(str(num)) == len(digits):
-        return False
-    return True
-
-
 def remain_digits(num, digits):
     used = {digit for digit in str(num)}
     return set([str(i) for i in digits]).difference(used)
@@ -60,14 +53,13 @@ def is_pandigital_product(product, remain_digits):
 
 
 if __name__ == '__main__':
-    
+
     DIGITS = range(1, 10)
     _sum = 0
 
-    not_prime_numbers = [num for num in range(3, 10000) if is_prime(num) is False]
-    not_duplicate_not_prime_numbers = [num for num in not_prime_numbers if has_duplicate_digit(num) is False]
+    not_prime_numbers = [num for num in range(1000, 10000) if is_prime(num) is False]
 
-    for num in range(1000, 10000):
+    for num in not_prime_numbers:
         remain = remain_digits(num, DIGITS)
         if len(remain) != 5:
             continue
