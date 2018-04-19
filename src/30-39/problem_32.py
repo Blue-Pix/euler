@@ -22,10 +22,9 @@ so be sure to only include it once in your sum.
 from itertools import permutations
 from functools import reduce
 from math import sqrt
-import time
 
 
-def is_prime_numbers(num):
+def is_prime(num):
     for divisor in range(2, int(sqrt(num)) + 1):
         if num % divisor == 0:
             return False
@@ -45,25 +44,27 @@ def remain_digits(num, digits):
 
 
 def is_pandigital_product(product, remain_digits):
-    combi = permutations(remain_digits)
-    for c in combi:
-        a = int(c[0])
-        b = int(reduce(lambda x, y: x + y, c[1:]))
-        if a * b == product:
-            return (a, b)
-        a = int(reduce(lambda x, y: x + y, c[:2]))
-        b = int(reduce(lambda x, y: x + y, c[2:]))
-        if a * b == product:
-            return (a, b)
+    _permutations = permutations(remain_digits)
+    for permutation in _permutations:
+        # 1 digit * 4 digit
+        multiplicand = int(permutation[0])
+        multiplier = int(reduce(lambda x, y: x + y, permutation[1:]))
+        if multiplicand * multiplier == product:
+            return (multiplicand, multiplier)
+        # 2 digit * 3 digit
+        multiplicand = int(reduce(lambda x, y: x + y, permutation[:2]))
+        multiplier = int(reduce(lambda x, y: x + y, permutation[2:]))
+        if multiplicand * multiplier == product:
+            return (multiplicand, multiplier)
     return None
 
 
 if __name__ == '__main__':
-    start = time.time()
+    
     DIGITS = range(1, 10)
     _sum = 0
 
-    not_prime_numbers = [num for num in range(3, 10000) if is_prime_numbers(num) is False]
+    not_prime_numbers = [num for num in range(3, 10000) if is_prime(num) is False]
     not_duplicate_not_prime_numbers = [num for num in not_prime_numbers if has_duplicate_digit(num) is False]
 
     for num in range(1000, 10000):
@@ -76,18 +77,3 @@ if __name__ == '__main__':
             print('%d * %d = %d' % (multipliers[0], multipliers[1], num))
 
     print('sum is %d' % _sum)
-    print(time.time() - start)
-
-'''
-# 1桁 * 4桁 or 2桁 * 3桁
-10 * 1000 = 10000
-10 * 100 = 1000
-1~9を全て使うと9桁
-
-a * b = c
-a != b != c
-a < b < c
-c is not prime number
-
-1.7 sec
-'''
