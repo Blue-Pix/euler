@@ -26,23 +26,28 @@ from functools import reduce
 
 
 def cancel(numerator, denominator):
-    if numerator % 10 == 0 or denominator % 10 == 0:
-        return False
-    n_digits = set(list(str(numerator)))
-    d_digits = set(list(str(denominator)))
-    common_digits = n_digits.intersection(d_digits)
-    for digit in common_digits:
-        if digit == str(numerator)[0]:
-            canceled_numerator = int(str(numerator)[1])
-        else:
-            canceled_numerator = int(str(numerator)[0])
-        if digit == str(denominator)[0]:
-            canceled_denominator= int(str(denominator)[1])
-        else:
-            canceled_denominator = int(str(denominator)[0])
+    numerator_str = str(numerator)
+    denominator_str = str(denominator)
 
-        if Fraction(canceled_numerator, canceled_denominator) == Fraction(numerator, denominator):
+    # trivial examples
+    if numerator_str[1] == '0' or denominator_str[1] == '0':
+        return False
+
+    original_fraction = Fraction(numerator, denominator)
+
+    # 10c + n / 10d + c
+    if numerator_str[0] == denominator_str[1]:
+        if int(denominator_str[0]) <= int(denominator_str[1]):
+            return False
+        if Fraction(int(numerator_str[1]), int(denominator_str[0])) == original_fraction:
             return True
+    # 10n + c / 10c + d
+    if numerator_str[1] == denominator_str[0]:
+        if int(numerator_str[1]) <= int(numerator_str[0]):
+            return False
+        if Fraction(int(numerator_str[0]), int(denominator_str[1])) == original_fraction:
+            return True
+
     return False
 
 
