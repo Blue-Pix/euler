@@ -28,32 +28,36 @@ def is_pandigital(num):
     return len(digit_list) == len(str(num))
 
 
+def multiply(num):
+    _length = 0
+    _products = []
+    for n in range(1, 10):
+        _product = num * n
+        # check product contains digit 0
+        if str(_product).find('0') != -1:
+            return None
+        # check each product pandigital
+        if is_pandigital(_product) is False:
+            return None
+        _length += len(str(_product))
+        _products.append(_product)
+        if _length >= 9:
+            break
+    if _length != 9:
+        return None
+    return _products
+
+
 if __name__ == '__main__':
 
     UPPER_BOUND = 10 ** 5
-    N = range(1, 10) # n never exceeds 10
     largest = 0
 
     for num in range(1, UPPER_BOUND):
-        _length = 0
-        _products = []
-        for n in N:
-            _product = num * n
-            # check product contains digit 0
-            if str(_product).find('0') != -1:
-                break
-            # check each product palindromic
-            if is_pandigital(_product) is False:
-                break
-            _length += len(str(_product))
-            _products.append(_product)
-            if _length >= 9:
-                break
-        if _length != 9:
-            continue
-
-        concatenated = reduce(lambda x, y: x + y, map(str, _products))
-        if is_pandigital(concatenated):
-            largest = max(largest, int(concatenated))
+        _products = multiply(num)
+        if _products is not None:
+            concatenated = reduce(lambda x, y: x + y, map(str, _products))
+            if is_pandigital(concatenated):
+                largest = max(largest, int(concatenated))
 
     print('answer is %d' % largest)
