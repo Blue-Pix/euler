@@ -28,7 +28,7 @@ def is_divisible(target, divisors):
 def prime_numbers(threshold):
     prime_numbers = [2]
     target = 3
-    while target < 1000000:
+    while target < threshold:
         if is_divisible(target, prime_numbers) is False:
             prime_numbers.append(target)
         target += 2
