@@ -37,9 +37,7 @@ def is_truncatable_prime(num, prime_numbers):
     for digit in ['2', '4', '5', '6', '8']:
         if digit in str_num[1:]:
             return False
-
-    # right to left NG
-    if str_num[0] in ['4', '6', '8', '9', '1']:
+    if str_num[0] in ['1', '4', '6', '8', '9']:
         return False
 
     # left to right
