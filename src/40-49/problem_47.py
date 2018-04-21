@@ -20,7 +20,6 @@ What is the first of these numbers?
 
 
 from math import sqrt
-import time
 
 
 def is_prime(num, primes):
@@ -36,8 +35,12 @@ def is_prime(num, primes):
 def factoring(num, primes):
     index = 0
     factors = set()
+    _sqrt = int(sqrt(num))
     while num != 1:
         factor = primes[index]
+        if factor > _sqrt:
+            factors.add(num)
+            break
         if num % factor == 0:
             num, _ = divmod(num, factor)
             factors.add(factor)
@@ -69,8 +72,7 @@ def find_consecutive(primes, length):
 
 
 if __name__ == '__main__':
-    
-    start = time.time()
+
     primes = [2]
     num = 3
     LENGTH = 4
@@ -84,4 +86,3 @@ if __name__ == '__main__':
                 print('answer is %d' % target)
                 break
         num += 1
-    print(time.time() - start)
