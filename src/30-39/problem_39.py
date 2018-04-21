@@ -19,31 +19,39 @@ integral: 整数、全体
 from math import sqrt
 
 
+def count_solutions(p, solutions):
+    if p in solutions:
+        solutions[p] += 1
+    else:
+        solutions[p] = 1
+    return solutions
+
+
+def search_b(a, c, square_dict, threshold):
+    if square_dict[c] - square_dict[a] in square_dict.values():
+        b = int(sqrt(square_dict[c] - square_dict[a]))
+        if b <= a or a + b + c > threshold:
+            return None
+        return b
+    return None
+
+
 if __name__ == '__main__':
 
     THRESHOLD = 1000
     square_dict = {num: num ** 2 for num in range(1, THRESHOLD)}
-    square_list = square_dict.values()
     solutions = {}
 
-    for c, c_square in square_dict.items():
-        if THRESHOLD / 2 < c:
-            break
-        for a, a_square in square_dict.items():
-            if c_square <= a_square:
-                break
+    # c always even
+    for c in range(2, THRESHOLD, 2):
+        # a < c / 3
+        for a in range(2, c // 3):
+            # p exceeds 1000
             if c + a > THRESHOLD:
                 break
-            if c_square - a_square in square_list:
-                b = int(sqrt(c_square - a_square))
-                if b < a:
-                    break
-                if a + b + c > THRESHOLD:
-                    continue
-
-                if a + b + c in solutions:
-                    solutions[a + b + c] += 1
-                else:
-                    solutions[a + b + c] = 1
+            # search b^2
+            b = search_b(a, c, square_dict, THRESHOLD)
+            if b is not None:
+                solutions = count_solutions(a + b + c, solutions)
 
     print('answer is %d' % sorted(solutions.items(), key=lambda x: x[1])[-1][0])
