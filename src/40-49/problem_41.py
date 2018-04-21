@@ -11,7 +11,6 @@ What is the largest n-digit pandigital prime that exists?
 '''
 
 
-import time
 from itertools import permutations
 from math import sqrt
 
